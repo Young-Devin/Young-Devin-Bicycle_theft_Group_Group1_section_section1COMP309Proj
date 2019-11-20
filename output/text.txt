@@ -1,0 +1,11 @@
+['X' 'Y' 'Index_' 'event_unique_id' 'Primary_Offence' 'Occurrence_Date'
+ 'Occurrence_Year' 'Occurrence_Month' 'Occurrence_Day' 'Occurrence_Time'
+ 'Division' 'City' 'Location_Type' 'Premise_Type' 'Bike_Make' 'Bike_Model'
+ 'Bike_Type' 'Bike_Speed' 'Bike_Colour' 'Cost_of_Bike' 'Status'
+ 'Neighbourhood' 'Hood_ID' 'Lat' 'Long' 'ObjectId']
+column values are:
+['X' 'Y' 'Index_' 'event_unique_id' 'Primary_Offence' 'Occurrence_Date'
+ 'Occurrence_Year' 'Occurrence_Month' 'Occurrence_Day' 'Occurrence_Time'
+ 'Division' 'City' 'Location_Type' 'Premise_Type' 'Bike_Make' 'Bike_Model'
+ 'Bike_Type' 'Bike_Speed' 'Bike_Colour' 'Cost_of_Bike' 'Status'
+ 'Neighbourhood' 'Hood_ID' 'Lat' 'Long' 'ObjectId']

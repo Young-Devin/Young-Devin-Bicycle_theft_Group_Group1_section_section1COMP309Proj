@@ -1,11 +1,120 @@
+
+****column values are:****
 ['X' 'Y' 'Index_' 'event_unique_id' 'Primary_Offence' 'Occurrence_Date'
  'Occurrence_Year' 'Occurrence_Month' 'Occurrence_Day' 'Occurrence_Time'
  'Division' 'City' 'Location_Type' 'Premise_Type' 'Bike_Make' 'Bike_Model'
  'Bike_Type' 'Bike_Speed' 'Bike_Colour' 'Cost_of_Bike' 'Status'
  'Neighbourhood' 'Hood_ID' 'Lat' 'Long' 'ObjectId']
-column values are:
-['X' 'Y' 'Index_' 'event_unique_id' 'Primary_Offence' 'Occurrence_Date'
- 'Occurrence_Year' 'Occurrence_Month' 'Occurrence_Day' 'Occurrence_Time'
- 'Division' 'City' 'Location_Type' 'Premise_Type' 'Bike_Make' 'Bike_Model'
- 'Bike_Type' 'Bike_Speed' 'Bike_Colour' 'Cost_of_Bike' 'Status'
- 'Neighbourhood' 'Hood_ID' 'Lat' 'Long' 'ObjectId']
+
+****column shape are:****
+(17892, 26)
+
+****column describe are:****
+                  X             Y        Index_  Occurrence_Year  \
+count  17892.000000  17892.000000  17892.000000     17892.000000   
+mean     -79.395403     43.673087   8947.366588      2016.135144   
+std        0.060971      0.038163   5165.320104         1.391046   
+min      -79.622833     43.587093      1.000000      2014.000000   
+25%      -79.420837     43.650410   4474.750000      2015.000000   
+50%      -79.391891     43.662062   8947.500000      2016.000000   
+75%      -79.374151     43.679932  13420.250000      2017.000000   
+max      -79.123100     43.832707  17893.000000      2018.000000   
+
+       Occurrence_Month  Occurrence_Day      Division    Bike_Speed  \
+count      17892.000000    17892.000000  17892.000000  17892.000000   
+mean           7.161413       15.582104     37.165940     14.207970   
+std            2.501219        8.532945     17.583056     10.692383   
+min            1.000000        1.000000     11.000000      0.000000   
+25%            5.000000        8.000000     14.000000      6.000000   
+50%            7.000000       16.000000     51.000000     16.000000   
+75%            9.000000       23.000000     52.000000     21.000000   
+max           12.000000       31.000000     55.000000     99.000000   
+
+       Cost_of_Bike       Hood_ID           Lat          Long      ObjectId  
+count  16581.000000  17892.000000  17892.000000  17892.000000  17892.000000  
+mean     913.693854     75.722278     43.673087    -79.395403   8946.500000  
+std     1370.009931     24.224830      0.038163      0.060971   5165.119844  
+min        0.000000      1.000000     43.587093    -79.622833      1.000000  
+25%      350.000000     71.000000     43.650410    -79.420837   4473.750000  
+50%      600.000000     77.000000     43.662062    -79.391891   8946.500000  
+75%     1000.000000     87.000000     43.679932    -79.374151  13419.250000  
+max    90021.000000    140.000000     43.832707    -79.123100  17892.000000  
+
+****column type are:****
+X                   float64
+Y                   float64
+Index_                int64
+event_unique_id      object
+Primary_Offence      object
+Occurrence_Date      object
+Occurrence_Year       int64
+Occurrence_Month      int64
+Occurrence_Day        int64
+Occurrence_Time      object
+Division              int64
+City                 object
+Location_Type        object
+Premise_Type         object
+Bike_Make            object
+Bike_Model           object
+Bike_Type            object
+Bike_Speed            int64
+Bike_Colour          object
+Cost_of_Bike        float64
+Status               object
+Neighbourhood        object
+Hood_ID               int64
+Lat                 float64
+Long                float64
+ObjectId              int64
+dtype: object
+
+****top 5 rows are:****
+           X          Y  Index_ event_unique_id Primary_Offence  \
+0 -79.367424  43.652412    1801  GO-20149004060     THEFT UNDER   
+1 -79.357460  43.659527    1802  GO-20149004061     THEFT UNDER   
+2 -79.383110  43.661373    1803  GO-20149004063     THEFT UNDER   
+3 -79.290672  43.678585    1804  GO-20149004064     THEFT UNDER   
+4 -79.380928  43.656330    1805  GO-20149004067     THEFT UNDER   
+
+            Occurrence_Date  Occurrence_Year  Occurrence_Month  \
+0  2014-06-13T04:00:00.000Z             2014                 6   
+1  2014-06-13T04:00:00.000Z             2014                 6   
+2  2014-05-02T04:00:00.000Z             2014                 5   
+3  2014-06-13T04:00:00.000Z             2014                 6   
+4  2014-06-13T04:00:00.000Z             2014                 6   
+
+   Occurrence_Day Occurrence_Time  Division     City  \
+0              13           11:30        51  Toronto   
+1              13           11:45        51  Toronto   
+2               2           12:45        51  Toronto   
+3              13           16:30        55  Toronto   
+4              13           18:15        51  Toronto   
+
+                                       Location_Type Premise_Type  \
+0  Streets, Roads, Highways (Bicycle Path, Privat...      Outside   
+1  Streets, Roads, Highways (Bicycle Path, Privat...      Outside   
+2  Parking Lots (Apt., Commercial Or Non-Commercial)      Outside   
+3  Single Home, House (Attach Garage, Cottage, Mo...        House   
+4  Streets, Roads, Highways (Bicycle Path, Privat...      Outside   
+
+         Bike_Make       Bike_Model Bike_Type  Bike_Speed Bike_Colour  \
+0  OT               ORPHEUS                OT          24      BLK      
+1  UK                           NaN        EL          32      ONG      
+2  OT               CROSS TRAIL            OT          21      BLK      
+3  GI               GIANT STP              OT          24      GRY      
+4  KO               DEW 59 BLK             MT          21      BLK      
+
+   Cost_of_Bike  Status          Neighbourhood  Hood_ID        Lat       Long  \
+0         800.0  STOLEN              Moss Park       73  43.652412 -79.367424   
+1        1200.0  STOLEN            Regent Park       72  43.659527 -79.357460   
+2         900.0  STOLEN  Church-Yonge Corridor       75  43.661373 -79.383110   
+3         400.0  STOLEN            The Beaches       63  43.678585 -79.290672   
+4         700.0  STOLEN  Church-Yonge Corridor       75  43.656330 -79.380928   
+
+   ObjectId  
+0      1001  
+1      1002  
+2      1003  
+3      1004  
+4      1005  

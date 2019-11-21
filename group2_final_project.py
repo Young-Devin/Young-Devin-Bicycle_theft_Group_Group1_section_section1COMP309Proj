@@ -40,8 +40,10 @@ print(data_group1_b['event_unique_id'][0:50].value_counts())
 ##Get the count of all unique values for the Primary_Offence column
 print(data_group1_b['Primary_Offence'].value_counts())
 
+##Get the count of all unique values for the Bike_Type column
 print(data_group1_b['Bike_Type'].value_counts())
 
+##Get the count of all unique values for the Location_Type column
 print(data_group1_b['Location_Type'].value_counts())
 
 
@@ -50,7 +52,9 @@ print(data_group1_b['Location_Type'].value_counts())
 print(data_group1_b['Neighbourhood'].value_counts())
 
 
-
+## Dropping all unique and repetitive variables that are useless for predictive analysis
+data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id','Occurence_Date', 'Occurence_Time'], axis=1)
+print(data_group1_b.shape)
 
 
 
@@ -61,10 +65,18 @@ print(data_group1_b['Neighbourhood'].value_counts())
 ##Check the basic statistic details of all numeric columns
 print(data_group1_b.describe())
 
+## Print just the mean of all numeric values
+print(data_group1_b.mean())
+
+## Print the correlation of the entire dataframe
+print(data_group1_b.corr())
+
+
 #Check the mean of all numeric columns grouped by Bike_Type
 print(data_group1_b.groupby('Bike_Type').mean())
 
-print(data_group1_b.corr())
+
+
 
 
 
@@ -123,10 +135,6 @@ print(data_group1_b.describe())
 data_group1_b.fillna("missing",inplace=True)
 data_group1_b[100:150]
 
-## Dropping all unique and repetitive variables that are useless for predictive analysis
-data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id','Occurence_Date', 'Occurence_Time'], axis=1)
-print(data_group1_b.shape)
-
 ##if we want to resort to deleting rows with missing values, use the following code
 
 ##data_group1_b.dropna(inplace=True)
@@ -150,7 +158,7 @@ data_group1_b_final.columns.values
 
 ## Prepare for model build
 data_group1_b_final_vars=data_group1_b_final.columns.values.tolist()
-Y=['Our classifier']
+Y=['Our classifier'] ## I am thinking Bike_Type
 X=[i for i in data_group1_b_final_vars if i not in Y ]
 type(Y)
 type(X)
@@ -171,9 +179,9 @@ print(rfe.ranking_)
 ## Added selected features to X and classifier to Y
 cols=[] 
 X=data_group1_b[cols]
-Y=data_group1_b['Our classifier']
+Y=data_group1_b['Our classifier'] ## I am thinking Bike_Type
 
 ## 2c - Training and testing data splits–use numpy, sci-kit learn
 
 from sklearn.model_selection import train_test_split
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)

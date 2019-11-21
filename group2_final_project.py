@@ -37,7 +37,22 @@ print(data_group1_b['ObjectId'][0:50].value_counts())
 print(data_group1_b['event_unique_id'][0:50].value_counts())
 
 
+##Get the count of all unique values for the Primary_Offence column
 print(data_group1_b['Primary_Offence'].value_counts())
+
+print(data_group1_b['Bike_Type'].value_counts())
+
+print(data_group1_b['Location_Type'].value_counts())
+
+
+## Checking the unique value counts for the Neighbourhood column
+## Note for Group: there is 141 different values for this column, should we keep it 
+print(data_group1_b['Neighbourhood'].value_counts())
+
+
+
+
+
 
 
 
@@ -56,8 +71,37 @@ print(data_group1_b.corr())
 ## 1c - Missing data evaluations–use pandas, numpy and any other python packages
 
 ##examine the count statistic of all numeric variables
-print(data_group1_b.describe())
+print(data_group1_b.count())
 
+## Missing data evaluation using the isnull method
+print(data_group1_b.isnull().sum())
+
+
+
+
+
+
+## 1d - Graphs and visualizations–use pandas, matplotlib, seaborn, numpy and any other python packages, 
+## also you can use power BI desktop.
+
+## Plotting the frequency of Bike Thefts in each month using a histogram
+import matplotlib.pyplot as plt
+data_group1_b.Occurrence_Month.hist()
+plt.title('Histogram of Month Of Occurence')
+plt.xlabel('Month Of Occurence')
+plt.ylabel('Frequency')
+
+## Visualization using Seaborn
+import seaborn as sns
+sns.distplot(data_group1_b['Occurrence_Month'], rug=True, hist=False)
+
+##sns.pairplot(data_group1_b)
+
+
+## 2a - Data transformations includes missing data handling, categorical data management, 
+## data normalization and standardizations as needed.
+
+##missing data handling
 
 ##Print all rows from 100 to 149 of column Cost_of_Bike
 data_group1_b['Cost_of_Bike'][100:150]
@@ -80,27 +124,56 @@ data_group1_b.fillna("missing",inplace=True)
 data_group1_b[100:150]
 
 ## Dropping all unique and repetitive variables that are useless for predictive analysis
-data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id'], axis=1)
+data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id','Occurence_Date', 'Occurence_Time'], axis=1)
 print(data_group1_b.shape)
 
+##if we want to resort to deleting rows with missing values, use the following code
+
+##data_group1_b.dropna(inplace=True)
 
 
+##categorical data management
+cat_vars=['']
+for group1 in cat_vars:
+    cat_list_group1='group1'+'_'+group1
+    print(cat_list_group1)
+    cat_list = pd.get_dummies(data_group1_b[group1], prefix=group1)
+    data_group1_b_dummies = data_group1_b.join(cat_list_group1)
+    data_group1_b = data_group1_b_dummies
+    
+# Remove the original columns
+cat_vars=['']
+data_group1_b_vars=data_group1_b.columns.values.tolist()
+to_keep=[i for i in data_group1_b_vars if i not in cat_vars]
+data_group1_b_final=data_group1_b[to_keep]
+data_group1_b_final.columns.values
 
+## Prepare for model build
+data_group1_b_final_vars=data_group1_b_final.columns.values.tolist()
+Y=['Our classifier']
+X=[i for i in data_group1_b_final_vars if i not in Y ]
+type(Y)
+type(X)
 
+## data normalization and standardizations
+    
+## 2b - Feature selection–use pandas and sci-kit learn.
+from sklearn import datasets
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+model = LogisticRegression()
+## select 7 features from the RFE model
+rfe = RFE(model, 7)
+rfe = rfe.fit(data_group1_b_final[X],data_group1_b_final[Y] )
+print(rfe.support_)
+print(rfe.ranking_)
 
+## Added selected features to X and classifier to Y
+cols=[] 
+X=data_group1_b[cols]
+Y=data_group1_b['Our classifier']
 
-## 1d - Graphs and visualizations–use pandas, matplotlib, seaborn, numpy and any other python packages, 
-## also you can use power BI desktop.
+## 2c - Training and testing data splits–use numpy, sci-kit learn
 
-## Plotting the frequency of Bike Thefts in each month using a histogram
-import matplotlib.pyplot as plt
-data_group1_b.Occurrence_Month.hist()
-plt.title('Histogram of Month Of Occurence')
-plt.xlabel('Month Of Occurence')
-plt.ylabel('Frequency')
-
-## Visualization using Seaborn
-import seaborn as sns
-sns.distplot(data_group1_b['Occurrence_Month'], rug=True, hist=False)
-
-##sns.pairplot(data_group1_b)
+from sklearn.model_selection import train_test_split
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)

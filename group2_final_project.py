@@ -46,14 +46,22 @@ print(data_group1_b['Bike_Type'].value_counts())
 ##Get the count of all unique values for the Location_Type column
 print(data_group1_b['Location_Type'].value_counts())
 
+##Get the count of all unique values for the Division column
+print(data_group1_b['Division'].value_counts())
+
 
 ## Checking the unique value counts for the Neighbourhood column
 ## Note for Group: there is 141 different values for this column, should we keep it 
 print(data_group1_b['Neighbourhood'].value_counts())
 
+##Get the count of all unique values for the Hood_ID column
+print(data_group1_b['Hood_ID'].value_counts())
+
+
+
 
 ## Dropping all unique and repetitive variables that are useless for predictive analysis
-data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id','Occurence_Date', 'Occurence_Time'], axis=1)
+data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id','Occurence_Date', 'City', 'Bike_Model', 'Bike_Make', 'Neighbourhood'], axis=1)
 print(data_group1_b.shape)
 
 
@@ -115,14 +123,24 @@ sns.distplot(data_group1_b['Occurrence_Month'], rug=True, hist=False)
 
 ##missing data handling
 
+##Get the count of all unique values for the Status column
+print(data_group1_b['Status'].value_counts())
+
+##delete all UNKNOWN values from the Status column
+data_group1_b = data_group1_b[data_group1_b.Status != 'UNKNOWN']
+
+
 ##Print all rows from 100 to 149 of column Cost_of_Bike
 data_group1_b['Cost_of_Bike'][100:150]
 
 ## Get the Cost_of_Bike average
 print(data_group1_b['Cost_of_Bike'].mean())
 
-## Replace missing values in the Cost_of_Bike column with its average
-data_group1_b['Cost_of_Bike'].fillna(data_group1_b['Cost_of_Bike'].mean(),inplace=True)
+## Get the mean of the Cost_of_Bike based on its Bike_Type
+data_group1_b.groupby('Bike_Type').mean().Cost_of_Bike
+
+## Replace missing values in the Cost_of_Bike column with its average based on Bike_Type
+data_group1_b['Cost_of_Bike'] = data_group1_b['Cost_of_Bike'].fillna(data_group1_b.groupby('Bike_Type')['Cost_of_Bike'].transform('mean').round(2))
 
 ## Print all rows from 100 to 149 of column Cost_of_Bike after filling in the missing results
 data_group1_b['Cost_of_Bike'][100:150]

@@ -61,7 +61,7 @@ print(data_group1_b['Hood_ID'].value_counts())
 
 
 ## Dropping all unique and repetitive variables that are useless for predictive analysis
-data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id','Occurence_Date', 'City', 'Bike_Model', 'Bike_Make', 'Neighbourhood'], axis=1)
+data_group1_b = data_group1_b.drop(['X','Y','Index_', 'ObjectId', 'event_unique_id','Occurrence_Date', 'City', 'Bike_Model', 'Bike_Make', 'Neighbourhood', 'Occurrence_Time'], axis=1)
 print(data_group1_b.shape)
 
 
@@ -159,16 +159,16 @@ data_group1_b[100:150]
 
 
 ##categorical data management
-cat_vars=['']
+cat_vars=['Primary_Offence', 'Location_Type', 'Premise_Type', 'Bike_Type', 'Bike_Colour']
 for group1 in cat_vars:
     cat_list_group1='group1'+'_'+group1
     print(cat_list_group1)
-    cat_list = pd.get_dummies(data_group1_b[group1], prefix=group1)
+    cat_list_group1 = pd.get_dummies(data_group1_b[group1], prefix=group1)
     data_group1_b_dummies = data_group1_b.join(cat_list_group1)
     data_group1_b = data_group1_b_dummies
     
 # Remove the original columns
-cat_vars=['']
+cat_vars=['Primary_Offence', 'Location_Type', 'Premise_Type', 'Bike_Type', 'Bike_Colour']
 data_group1_b_vars=data_group1_b.columns.values.tolist()
 to_keep=[i for i in data_group1_b_vars if i not in cat_vars]
 data_group1_b_final=data_group1_b[to_keep]
@@ -176,7 +176,7 @@ data_group1_b_final.columns.values
 
 ## Prepare for model build
 data_group1_b_final_vars=data_group1_b_final.columns.values.tolist()
-Y=['Our classifier'] ## I am thinking Bike_Type
+Y=['Status']
 X=[i for i in data_group1_b_final_vars if i not in Y ]
 type(Y)
 type(X)
@@ -195,11 +195,26 @@ print(rfe.support_)
 print(rfe.ranking_)
 
 ## Added selected features to X and classifier to Y
-cols=[] 
-X=data_group1_b[cols]
-Y=data_group1_b['Our classifier'] ## I am thinking Bike_Type
+cols=[] ## features selected
+X=data_group1_b_final[cols]
+Y=data_group1_b_final['Status']
 
 ## 2c - Training and testing data splits–use numpy, sci-kit learn
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
+
+
+## 3- Predictive model building
+
+## Use logistic regression and decision trees–use sci-kit learn
+
+from sklearn import linear_model
+from sklearn import metrics
+clf_lr_group1 = linear_model.LogisticRegression(solver='lbfgs')
+clf_lr_group1.fit(X_train, Y_train)
+
+predicted = clf_lr_group1.predict(X_test)
+print (predicted)
+#4-Check model accuracy
+print (metrics.accuracy_score(Y_test, predicted))	

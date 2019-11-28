@@ -43,6 +43,12 @@ print(data_group1_b['Primary_Offence'].value_counts())
 ##Get the count of all unique values for the Bike_Type column
 print(data_group1_b['Bike_Type'].value_counts())
 
+##Get the count of all unique values for the Bike_Make column
+print(data_group1_b['Bike_Make'].value_counts())
+
+##Get the count of all unique values for the Bike_Colour column
+print(data_group1_b['Bike_Colour'].value_counts())
+
 ##Get the count of all unique values for the Location_Type column
 print(data_group1_b['Location_Type'].value_counts())
 
@@ -54,8 +60,16 @@ print(data_group1_b['Division'].value_counts())
 ## Note for Group: there is 141 different values for this column, should we keep it 
 print(data_group1_b['Neighbourhood'].value_counts())
 
-##Get the count of all unique values for the Hood_ID column
-print(data_group1_b['Hood_ID'].value_counts())
+##Get the count of all unique values for the Occurrence_Day column
+print(data_group1_b['Occurrence_Day'].value_counts())
+
+
+##Get the count of all unique values for the Occurrence_Time column
+print(data_group1_b['Occurrence_Time'].value_counts())
+
+
+##Get the count of all unique values for the Premise_Type column
+print(data_group1_b['Premise_Type'].value_counts())
 
 
 
@@ -187,7 +201,7 @@ type(X)
 from sklearn import datasets
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
-model = LogisticRegression()
+model = LogisticRegression(solver='lbfgs')
 ## select 7 features from the RFE model
 rfe = RFE(model, 7)
 rfe = rfe.fit(data_group1_b_final[X],data_group1_b_final[Y] )
